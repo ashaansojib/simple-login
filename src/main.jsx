@@ -1,15 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Login from './components/login/Login.jsx'
 import AuthProvider from './components/providers/AuthProvider.jsx'
+import SingIn from './components/Singin/SingIn.jsx'
+import Register from './components/register/Register'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Login></Login>
+    element: <SingIn></SingIn>
+  },
+  {
+    path: '/register',
+    element: <Register></Register>
   }
 ])
 
