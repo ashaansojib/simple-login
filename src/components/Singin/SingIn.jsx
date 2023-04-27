@@ -21,6 +21,7 @@ const SingIn = () => {
             .catch(error => {
                 console.log(error)
             })
+        form.reset();
     }
 
     return (
@@ -39,7 +40,7 @@ const SingIn = () => {
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
-                    <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                    <input type="password" name='password' required placeholder="password" className="input input-bordered" />
                     <label className="label">
                         <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                     </label>

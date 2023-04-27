@@ -21,7 +21,7 @@ const Header = () => {
                 <span>{user.email}</span>
                 <button onClick={handleLogOut} className="btn btn-xs">Sing Out</button>
                 </>
-                : 'User Not Available'
+                : 'Sing Out'
             }
 
         </div>

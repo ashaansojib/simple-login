@@ -20,6 +20,7 @@ const Register = () => {
         .catch( error =>{
             console.log(error)
         })
+        form.reset();
     }
     return (
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl mx-auto">
@@ -37,13 +38,13 @@ const Register = () => {
                     <label className="label">
                         <span className="label-text">Your Name</span>
                     </label>
-                    <input type="text" name='name' placeholder="Your name" className="input input-bordered" />
+                    <input type="text" name='name' required placeholder="Your name" className="input input-bordered" />
                 </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
-                    <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                    <input type="password" name='password' required placeholder="password" className="input input-bordered" />
                 </div>
                 <label className="label">
                     <span className="label-text">Already have an account? <Link to="/">SingIn</Link></span>
