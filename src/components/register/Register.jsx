@@ -8,7 +8,8 @@ const Register = () => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    const {createUser, emailVerification} = useContext(AuthContext);
+    const { createUser, emailVerification } = useContext(AuthContext);
+    const [accepted, setAccepted] = useState(false);
 
     // register function
     const handleRegister = (e) => {
@@ -17,27 +18,30 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        if(password.length < 8){
+        if (password.length < 8) {
             setError("password length must 8 charecter!");
             return;
         }
         createUser(email, password)
-        .then( result=>{
-            const loggedUser = result.user;
-            setError("")
-            setSuccess("Successfully user created!!");
-            emailVerification();
-        })
-        .then( result =>{
-            console.log(result)
-            alert("you got a verified mail")
-        })
-        .catch( error =>{
-            setSuccess("")
-            setError(error.message)
-            console.log(error.message)
-        });
+            .then(result => {
+                const loggedUser = result.user;
+                setError("")
+                setSuccess("Successfully user created!!");
+                emailVerification();
+            })
+            .then(result => {
+                console.log(result)
+                alert("you got a verified mail")
+            })
+            .catch(error => {
+                setSuccess("")
+                setError(error.message)
+                console.log(error.message)
+            });
         form.reset();
+    }
+    const handleAccepted = (event) =>{
+        setAccepted(event.target.checked)
     }
     return (
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl mx-auto">
@@ -64,16 +68,19 @@ const Register = () => {
                     <input type="password" name='password' required placeholder="password" className="input input-bordered" />
                 </div>
                 <label className="label">
+                    <span onClick={handleAccepted}><input type="checkbox" name='checkbox' /> Please read <Link to="/" className='underline'>terms!</Link></span>
+                </label>
+                <label className="label">
                     {
                         error ? <span className="label-text text-red-600">{error}</span> :
-                        <span className="label-text text-green-600">{success}</span>
+                            <span className="label-text text-green-600">{success}</span>
                     }
                 </label>
                 <label className="label">
                     <span className="label-text">Already have an account? <Link to="/">SingIn</Link></span>
                 </label>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary">Register</button>
+                    <button disabled={!accepted} className="btn btn-primary">Register</button>
                 </div>
             </form>
         </div>
