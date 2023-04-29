@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import app from '../firebase/firebase.confiq';
 
 export const AuthContext = createContext(null)
@@ -31,12 +31,22 @@ const AuthProvider = ({children}) => {
     const logOut = () =>{
         return signOut(auth)
     }
+    // user email verification
+    const emailVerification = () =>{
+        return sendEmailVerification(auth.currentUser)
+    }
+    // password forgetting
+    const resetPassword = (email) =>{
+        return sendPasswordResetEmail(auth, email)
+    }
     // function shared!!
     const AuthInfo = {
         user,
         createUser,
         userLogin,
-        logOut
+        logOut,
+        emailVerification,
+        resetPassword
     }
 
     return (

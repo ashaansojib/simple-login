@@ -5,7 +5,7 @@ import Header from '../header/Header';
 
 const SingIn = () => {
 
-    const { userLogin } = useContext(AuthContext);
+    const { userLogin, resetPassword } = useContext(AuthContext);
 
     const handleLogin = (e) => {
         e.preventDefault();

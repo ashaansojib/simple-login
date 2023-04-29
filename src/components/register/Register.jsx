@@ -1,11 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import Header from '../header/Header';
 
 const Register = () => {
 
-    const {createUser} = useContext(AuthContext)
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+    const {createUser, emailVerification} = useContext(AuthContext);
+
     // register function
     const handleRegister = (e) => {
         e.preventDefault();
@@ -13,13 +17,26 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
+        if(password.length < 8){
+            setError("password length must 8 charecter!");
+            return;
+        }
         createUser(email, password)
         .then( result=>{
             const loggedUser = result.user;
+            setError("")
+            setSuccess("Successfully user created!!");
+            emailVerification();
+        })
+        .then( result =>{
+            console.log(result)
+            alert("you got a verified mail")
         })
         .catch( error =>{
-            console.log(error)
-        })
+            setSuccess("")
+            setError(error.message)
+            console.log(error.message)
+        });
         form.reset();
     }
     return (
@@ -32,7 +49,7 @@ const Register = () => {
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
-                    <input type="email" name='email' placeholder="email" className="input input-bordered" />
+                    <input type="email" name='email' required placeholder="email" className="input input-bordered" />
                 </div>
                 <div className="form-control">
                     <label className="label">
@@ -46,6 +63,12 @@ const Register = () => {
                     </label>
                     <input type="password" name='password' required placeholder="password" className="input input-bordered" />
                 </div>
+                <label className="label">
+                    {
+                        error ? <span className="label-text text-red-600">{error}</span> :
+                        <span className="label-text text-green-600">{success}</span>
+                    }
+                </label>
                 <label className="label">
                     <span className="label-text">Already have an account? <Link to="/">SingIn</Link></span>
                 </label>
