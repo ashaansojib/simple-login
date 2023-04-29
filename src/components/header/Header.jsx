@@ -15,6 +15,7 @@ const Header = () => {
     return (
         <div>
             <Link className='p-2 text-center text-sky-600' to='/'>Home</Link>
+            <Link className='p-2 text-center text-sky-600' to='/checklist'>Listing</Link>
             {
                 user ?
                 <>

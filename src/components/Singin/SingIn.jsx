@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../header/Header';
 
 const SingIn = () => {
 
     const { userLogin, resetPassword } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/register';
 
+    console.log(location)
     const handleLogin = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -16,6 +20,7 @@ const SingIn = () => {
         userLogin(email, password)
             .then(result => {
                 const loggedUser = result.user;
+                navigate(from, {replace: true})
                 console.log(loggedUser)
             })
             .catch(error => {
